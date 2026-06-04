@@ -1,0 +1,85 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+class Message {
+public:
+    string sender;
+    string text;
+
+    Message(string s, string t) {
+        sender = s;
+        text = t;
+    }
+};
+
+class ChatApp {
+private:
+    vector<Message> chats;
+
+public:
+    void sendMessage() {
+        string sender, text;
+
+        cin.ignore();
+
+        cout << "Enter Your Name: ";
+        getline(cin, sender);
+
+        cout << "Enter Message: ";
+        getline(cin, text);
+
+        chats.push_back(Message(sender, text));
+
+        cout << "Message Sent Successfully!\n";
+    }
+
+    void viewMessages() {
+        if (chats.empty()) {
+            cout << "No Messages Available!\n";
+            return;
+        }
+
+        cout << "\n----- Chat History -----\n";
+
+        for (auto &msg : chats) {
+            cout << msg.sender << ": "
+                 << msg.text << endl;
+        }
+    }
+};
+
+int main() {
+    ChatApp app;
+    int choice;
+
+    do {
+        cout << "\n===== CHAT APPLICATION =====\n";
+        cout << "1. Send Message\n";
+        cout << "2. View Messages\n";
+        cout << "3. Exit\n";
+        cout << "Enter Choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                app.sendMessage();
+                break;
+
+            case 2:
+                app.viewMessages();
+                break;
+
+            case 3:
+                cout << "Exiting Application...\n";
+                break;
+
+            default:
+                cout << "Invalid Choice!\n";
+        }
+
+    } while (choice != 3);
+
+    return 0;
+}
